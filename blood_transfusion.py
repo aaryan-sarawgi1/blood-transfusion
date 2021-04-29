@@ -3,12 +3,23 @@ import sqlite3
 db=sqlite3.connect("test.db")
 cursor=db.cursor()
 print("Successfully Connected to SQLite")
+cursor.execute("""CREATE TABLE if not exists donor(
+	name text,
+	age integer,
+	gender text,
+	address text,
+	contactno integer,
+	bloodgroup text,
+	platelet integer,
+	rbc integer,
+	dates varchar(10)) """)
+db.commit()
 root = Tk()
 root.title("BLOOD BANK")
 root.geometry("1920x1080")
-root.iconbitmap('C:/Users/Samir/Desktop/icon_img_1.ico')
+root.iconbitmap('C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/icon_img1.ico')
 
-background_image=PhotoImage(file='C:/Users/Samir/Desktop/bloodpic1.png')
+background_image=PhotoImage(file='C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/background.png')
 background_label = Label(root, image=background_image)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 l3=Label(root,text="BLOOD BANK SYSTEM",bg='white',font = "Helvetica 15 bold").place(x=550,y=40,w=350,h=50)
@@ -21,18 +32,18 @@ b2=Button(root,text="Exit",padx=20,pady=7,command=lambda : stop(root)).place(x=3
 
 v = StringVar()
 
-def insertDonor(name,age,gender,address,contactno,bloodgroup,platelet,rbc,date):
+def insertDonor(name,age,gender,address,contactno,bloodgroup,platelet,rbc,dates):
 	try:
-		cursor.execute("INSERT INTO donor (name,age,gender,address,contactno,bloodgroup,platelet,rbc,date) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?)", (name,age,gender,address,contactno,bloodgroup,platelet,rbc,date)) 
+		cursor.execute("INSERT INTO donor (name,age,gender,address,contactno,bloodgroup,platelet,rbc,dates) VALUES(?, ?, ?, ?, ? ,?, ?, ?, ?)", (name,age,gender,address,contactno,bloodgroup,platelet,rbc,dates)) 
 		db.commit()
 		root=Toplevel()
 		root.title("BLOOD BANK")
-		root.iconbitmap('C:/Users/Samir/Desktop/icon_img_1.ico')
+		root.iconbitmap('C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/icon_img1.ico')
 		root.geometry("720x450")
-		background_image=PhotoImage(file='C:/Users/Samir/Desktop/thank_img.png')
+		background_image=PhotoImage(file='C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/thank_img.png')
 		background_label = Label(root, image=background_image)
 		background_label.place(x=0, y=0, relwidth=1, relheight=1)
-		l=Label(root,text="Hiie  "+name,padx=50,pady=10).place(x=300,y=65)
+		l=Label(root,text="Hi  "+name,padx=50,pady=10).place(x=300,y=65)
 		b2=Button(root,text="Back",padx=25,pady=8,command=lambda : stop(root)).place(x=330,y=250)
 		background_label.image = background_image
 		root.mainloop()
@@ -58,8 +69,8 @@ def donordetails():
 	root=Toplevel()
 	root.title("BLOOD BANK")
 	root.geometry("1920x1080")
-	root.iconbitmap('C:/Users/Samir/Desktop/icon_img_1.ico')
-	background_image=PhotoImage(file='C:/Users/Samir/Desktop/blood_img.png')
+	root.iconbitmap('C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/icon_img1.ico')
+	background_image=PhotoImage(file='C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/background2.png')
 	background_label = Label(root, image=background_image)
 	background_label.place(x=0, y=0, relwidth=1, relheight=1)
 	l1=Label(root,text="Name:",bg='white',font="Helvetica 12").place(x=450,y=40)
@@ -104,8 +115,8 @@ def grid1(bg):
 	root=Toplevel()
 	root.title("LIST OF MATCHING DONORS")
 	root.geometry("1150x619")
-	root.iconbitmap('C:/Users/Samir/Desktop/icon_img_1.ico')
-	background_image=PhotoImage(file='C:/Users/Samir/Desktop/match1_img.png')
+	root.iconbitmap('C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/icon_img1.ico')
+	background_image=PhotoImage(file='C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/background_3.png')
 	background_label = Label(root, image=background_image)
 	background_label.place(x=0, y=0, relwidth=1, relheight=1)
 	rows=retrieve(bg)
@@ -128,7 +139,7 @@ def requestblood():
 	root.title("BLOOD BANK")
 	root.geometry("900x500")
 	root.configure(background='rosybrown1')
-	root.iconbitmap('C:/Users/Samir/Desktop/icon_img_1.ico')
+	root.iconbitmap('C:/Users/Aaryan/Documents/GitHub/Blood_Bank/blood-transfusion/images/icon_img1.ico')
 	l=Label(root,text="Enter the blood group").place(x=50,y=50,w=400,h=40)
 	e=Entry(root)
 	e.place(x=500,y=50)
